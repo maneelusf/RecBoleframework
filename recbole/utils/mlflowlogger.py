@@ -17,7 +17,6 @@ class MLFlowLogger(object):
         self.setup()
 
     def setup(self):
-        #import pdb;pdb.set_trace()
         if self.log_mlflow:
             try:
                 import mlflow
@@ -43,7 +42,6 @@ class MLFlowLogger(object):
     def log_metrics(self, metrics, head="train", commit=True):
         if self.log_mlflow:
             if head == 'train':
-              #  import pdb;pdb.set_trace()
                 step = metrics['epoch']
                 metrics = self._add_head_to_metrics(metrics, head)
                 metrics_new = {}
@@ -54,7 +52,6 @@ class MLFlowLogger(object):
                 self._mlflow.log_metrics(metrics_new,step = step)
             else:
                 metrics_new = {}
-             #   import pdb;pdb.set_trace()
                 step = metrics['valid_step']
                 metrics = self._add_head_to_metrics(metrics, head)
                 for metric in metrics:
@@ -64,8 +61,6 @@ class MLFlowLogger(object):
     def log_eval_metrics(self, metrics, head="eval",step = 0):
         if self.log_mlflow:
             metrics_new = {}
-            #import pdb;pdb.set_trace()
-            #step = metrics['epoch']
             for metric in metrics.keys():
                 metrics_new[metric.replace('@','_')] = metrics[metric]
             
@@ -74,8 +69,6 @@ class MLFlowLogger(object):
 
     def _set_steps(self):
         pass
-        #self._wandb.define_metric("train/*", step_metric="train_step")
-        #self._wandb.define_metric("valid/*", step_metric="valid_step")
 
     def _add_head_to_metrics(self, metrics, head):
         head_metrics = dict()
